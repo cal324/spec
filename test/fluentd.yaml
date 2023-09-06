@@ -1,0 +1,145 @@
+kind: "StatefulSet"
+podSecurityPolicy:
+  enabled: false
+service:
+  ports: 
+   - name: "forwarder"
+     protocol: TCP
+     containerPort: 24224
+metrics:
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      release: monitoring-prometheus
+    namespace: "monitoring"
+  prometheusRule:
+    enabled: true
+    additionalLabels: 
+      release: monitoring-prometheus
+    namespace: "monitoring"
+    rules:
+      - alert: FluentdDown
+        expr: up{job="fluentd"} == 0
+        for: 5m
+        labels:
+          context: fluentd
+          severity: warning
+        annotations:
+          summary: "Fluentd Down"
+          description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
+      - alert: FluentdScrapeMissing
+        expr: absent(up{job="fluentd"} == 1)
+        for: 15m
+        labels:
+          context: fluentd
+          severity: warning
+        annotations:
+          summary: "Fluentd Scrape Missing"
+          description: "Fluentd instance has disappeared from Prometheus target discovery"
+dashboards:
+  enabled: false
+
+# Resource Configuration
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+persistence:
+  enabled: true
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 10Gi
+
+# Using Kubelet to Get Metadata
+podAnnotations:
+  fluentbit.io/parser: fluentd_parser
+
+# configs
+image:
+  tag: "v1.16.2-debian-kafka2-1.0"
+configMapConfigs:
+  - fluentd-prometheus-conf
+fileConfigs:
+  01_sources.conf: |-
+    <source>
+      @type forward
+    </source>
+    
+  02_filters.conf: |-
+    <filter **>
+      @type prometheus
+      <metric>
+        name fluentd_input_status_num_records_total
+        type counter
+        desc The total number of incoming records
+        <labels>
+          tag ${tag}
+          hostname ${hostname}
+        </labels>
+      </metric>
+    </filter>
+
+    <filter tracing>
+      @type record_transformer
+      enable_ruby true
+      <record>
+        name "Fluentd:output"
+        traceId ${record["x_b3_traceid"]}
+        parentId ${record["x_b3_spanid"]}
+        timestamp ${t=Time.now;t.to_i*1_000_000+t.usec}
+        id "0000000000000001"
+        duration ${1}
+      </record>
+      remove_keys remote,host,user,method,path,code,size,referer,agent,http_x_forwarded_for,x_b3_traceid,x_b3_spanid,x_b3_parentspanid,x_b3_sampled
+    </filter>
+
+  03_dispatch.conf: |-
+
+  04_outputs.conf: |-
+    <match tracing>
+      @type http
+      endpoint http://simplest-collector.tracing.svc.cluster.local:9411/api/v2/spans
+      http_method post
+      json_array true
+      headers {"Content-Type":"application/json"}
+    </match>
+
+    <match **>
+      @type copy
+      <store>
+        @type rdkafka2
+        brokers "my-cluster-kafka-external-bootstrap.kafka.svc.cluster.local:9094"
+        topic_key my-topic
+        default_topic my-topic
+        flush_interval 1s
+        <buffer>
+          @type file
+          path /var/log/fluent/kafka
+        </buffer>
+        <format>
+          @type avro
+          schema_json {"type":"record","name":"sampleRecord","namespace":"com.mycorp.mynamespace","fields":[{"name": "remote", "type": "string"},{"name": "host", "type": "string"},{"name": "user", "type": "string"},{"name": "method", "type":"string"},{"name": "path", "type": "string"},{"name": "code", "type": "string"},{"name": "size", "type": "string"},{"name": "referer", "type": "string"},{"name": "agent", "type": "string"},{"name":"http_x_forwarded_for", "type": "string"},{"name": "x_b3_traceid", "type": "string"},{"name": "x_b3_spanid", "type": "string"},{"name":"x_b3_parentspanid", "type": "string"},{"name": "x_b3_sampled", "type": "string"}]}
+        </format>
+      </store>
+      <store>
+        @type rewrite_tag_filter
+        <rule>
+          key x_b3_sampled
+          pattern /^1$/
+          tag tracing
+        </rule>
+      </store>
+      <store>
+        @type prometheus
+        <metric>
+          name fluentd_output_status_num_records_total
+          type counter
+          desc The total number of outgoing records
+          <labels>
+            tag ${tag}
+            hostname ${hostname}
+          </labels>
+        </metric>
+      </store>
+    </match>
+
