@@ -12,7 +12,7 @@ metrics:
     additionalLabels:
       release: monitoring-prometheus
     namespace: "monitoring"
-    interval: 5s
+    interval: 10s
     scrapeTimeout: 10s
   prometheusRule:
     enabled: true

@@ -1,7 +1,7 @@
 serviceMonitor:
   enabled: true
   namespace: monitoring
-  interval: 5s
+  interval: 10s
   scrapeTimeout: 10s
   jobLabel: fluentbit
   selector:
