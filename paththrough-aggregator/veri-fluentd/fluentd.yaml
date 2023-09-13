@@ -76,5 +76,8 @@ fileConfigs:
       topic_key my-topic
       default_topic my-topic
       flush_interval 1s
+      <format>
+        @type json
+      </format>
     </match>
 
