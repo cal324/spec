@@ -72,7 +72,6 @@ fileConfigs:
       brokers "my-cluster-kafka-external-bootstrap.kafka.svc.cluster.local:9094"
       topic_key my-topic
       default_topic my-topic
-      flush_interval 1s
       <format>
         @type json
       </format>
