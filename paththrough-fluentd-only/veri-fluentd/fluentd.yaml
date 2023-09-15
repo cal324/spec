@@ -59,6 +59,7 @@ fileConfigs:
       @type tail
       path /var/log/nginx/*/access.log
       pos_file /var/log/nginx.log.pos
+      tag nginx
       <parse>
         @type none
       </parse>
