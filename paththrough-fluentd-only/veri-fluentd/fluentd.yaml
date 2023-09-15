@@ -1,0 +1,81 @@
+kind: "StatefulSet"
+podSecurityPolicy:
+  enabled: false
+service:
+  ports: 
+   - name: "forwarder"
+     protocol: TCP
+     containerPort: 24224
+metrics:
+  serviceMonitor:
+    enabled: false
+  prometheusRule:
+    enabled: true
+    additionalLabels: 
+      release: monitoring-prometheus
+    namespace: "monitoring"
+    rules:
+      - alert: FluentdDown
+        expr: up{job="fluentd"} == 0
+        for: 5m
+        labels:
+          context: fluentd
+          severity: warning
+        annotations:
+          summary: "Fluentd Down"
+          description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
+      - alert: FluentdScrapeMissing
+        expr: absent(up{job="fluentd"} == 1)
+        for: 15m
+        labels:
+          context: fluentd
+          severity: warning
+        annotations:
+          summary: "Fluentd Scrape Missing"
+          description: "Fluentd instance has disappeared from Prometheus target discovery"
+dashboards:
+  enabled: false
+
+# Resource Configuration
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+persistence:
+  enabled: true
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 10Gi
+
+# Using Kubelet to Get Metadata
+podAnnotations:
+  fluentbit.io/parser: fluentd_parser
+
+# configs
+image:
+  tag: "v1.16.2-debian-kafka2-1.0"
+configMapConfigs:
+  - fluentd-prometheus-conf
+fileConfigs:
+  01_sources.conf: |-
+    <source>
+      @type tail
+      path /var/log/nginx/*/access.log
+      pos_file /var/log/nginx.log.pos
+    </source>
+
+  02_filters.conf: |-
+
+  03_dispatch.conf: |-
+
+  04_outputs.conf: |-
+    <match **>
+      @type rdkafka2
+      brokers "my-cluster-kafka-external-bootstrap.kafka.svc.cluster.local:9094"
+      topic_key my-topic
+      default_topic my-topic
+      <format>
+        @type json
+      </format>
+    </match>
+
