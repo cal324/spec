@@ -1,10 +1,5 @@
 kind: "DaemonSet"
 podSecurityPolicy: {enabled: false}
-service:
-  ports: 
-   - name: "forwarder"
-     protocol: TCP
-     containerPort: 24224
 dashboards: {enabled: false}
 
 resources:
