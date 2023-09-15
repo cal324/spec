@@ -1,7 +1,3 @@
-serviceMonitor: {enabled: false}
-prometheusRule: {enabled: false}
-dashboards: {enabled: false}
-
 resources:
   limits:
     cpu: 100m
