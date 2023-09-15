@@ -8,6 +8,9 @@ resources:
     cpu: 100m
     memory: 128Mi
 
+configMapConfigs:
+  - fluentd-prometheus-conf
+
 fileConfigs:
   01_sources.conf: |-
     <source>

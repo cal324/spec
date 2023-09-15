@@ -15,6 +15,9 @@ resources:
 
 persistence: {enabled: false}
 
+configMapConfigs:
+  - fluentd-prometheus-conf
+
 fileConfigs:
   01_sources.conf: |-
     <source>
