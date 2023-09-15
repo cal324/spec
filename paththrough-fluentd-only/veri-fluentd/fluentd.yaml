@@ -8,12 +8,6 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-#image:
-#  tag: "v1.16.2-debian-kafka2-1.0"
-
-configMapConfigs:
-  - fluentd-prometheus-conf
-
 fileConfigs:
   01_sources.conf: |-
     <source>
