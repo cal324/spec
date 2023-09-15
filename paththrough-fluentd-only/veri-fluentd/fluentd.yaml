@@ -1,4 +1,4 @@
-kind: "StatefulSet"
+kind: "Daemonset"
 podSecurityPolicy:
   enabled: false
 service:
@@ -62,6 +62,9 @@ fileConfigs:
       @type tail
       path /var/log/nginx/*/access.log
       pos_file /var/log/nginx.log.pos
+      <parse>
+        @type none
+      </parse>
     </source>
 
   02_filters.conf: |-
