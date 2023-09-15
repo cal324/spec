@@ -1,4 +1,4 @@
-kind: "Daemonset"
+kind: "DaemonSet"
 podSecurityPolicy:
   enabled: false
 service:
