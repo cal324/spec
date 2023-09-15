@@ -42,10 +42,7 @@ resources:
     cpu: 100m
     memory: 128Mi
 persistence:
-  enabled: true
-  storageClass: ""
-  accessMode: ReadWriteOnce
-  size: 10Gi
+  enabled: false
 
 # Using Kubelet to Get Metadata
 podAnnotations:
