@@ -1,4 +1,5 @@
 kind: "DaemonSet"
+variant: kafka2
 podSecurityPolicy: {enabled: false}
 dashboards: {enabled: false}
 
@@ -7,11 +8,11 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-image:
-  tag: "v1.16.2-debian-kafka2-1.0"
+#image:
+#  tag: "v1.16.2-debian-kafka2-1.0"
 
-#configMapConfigs:
-#  - fluentd-prometheus-conf
+configMapConfigs:
+  - fluentd-prometheus-conf
 
 fileConfigs:
   01_sources.conf: |-
