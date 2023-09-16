@@ -12,7 +12,7 @@ spec:
     - {name: values_repourl, value: https://github.com/cal324/spec.git}
     - {name: rate, value: 1000}
     - {name: duration, value: 180}
-    - {name: limit_cpu, value: 200m}
+    - {name: limit_cpu, value: 100m}
     - {name: limit_memory, value: 128Mi}
   templates:
     - name: sample
