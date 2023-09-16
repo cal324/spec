@@ -10,5 +10,5 @@ config:
 
   outputs: |
     [OUTPUT]
-        Name nu..
+        Name null
         Match *
