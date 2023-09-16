@@ -1,3 +1,4 @@
+kind: DaemonSet
 podAnnotations: {fluentbit.io/parser: fluentbit_parser}
 
 config:
@@ -5,6 +6,7 @@ config:
     [INPUT]
         Name dummy
         Dummy {"message": "custom dummy"}
+        Rate 10000
 
   filters: |
 
