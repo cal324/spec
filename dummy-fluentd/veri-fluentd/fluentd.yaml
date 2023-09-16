@@ -1,0 +1,25 @@
+kind: "DaemonSet"
+variant: kafka2
+podSecurityPolicy: {enabled: false}
+dashboards: {enabled: false}
+podAnnotations: {fluentbit.io/parser: fluentd_parser}
+configMapConfigs:
+  - fluentd-prometheus-conf
+
+fileConfigs:
+  01_sources.conf: |-
+    <source>
+      @type sample
+      sample {"hello":"world"}
+      tag sample
+    </source>
+
+  02_filters.conf: |-
+
+  03_dispatch.conf: |-
+
+  04_outputs.conf: |-
+    <match **>
+      @type null
+    </match>
+

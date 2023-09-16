@@ -1,0 +1,14 @@
+podAnnotations: {fluentbit.io/parser: fluentbit_parser}
+
+config:
+  inputs: |
+    [INPUT]
+        Name dummy
+        Dummy {"message": "custom dummy"}
+
+  filters: |
+
+  outputs: |
+    [OUTPUT]
+        Name nu..
+        Match *
