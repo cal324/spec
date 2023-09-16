@@ -1,4 +1,4 @@
-kind: "DaemonSet"
+kind: "Deployment"
 variant: kafka2
 podSecurityPolicy: {enabled: false}
 dashboards: {enabled: false}
@@ -12,6 +12,7 @@ fileConfigs:
       @type sample
       sample {"hello":"world"}
       tag sample
+      rate 10000
     </source>
 
   02_filters.conf: |-
