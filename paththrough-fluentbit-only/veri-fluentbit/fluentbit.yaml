@@ -1,7 +1,4 @@
-resources:
-  limits:
-    cpu: 100m
-    memory: 128Mi
+podAnnotations: {fluentbit.io/parser: fluentbit_parser}
 
 config:
   inputs: |

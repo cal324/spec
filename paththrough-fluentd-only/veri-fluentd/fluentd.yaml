@@ -2,12 +2,7 @@ kind: "DaemonSet"
 variant: kafka2
 podSecurityPolicy: {enabled: false}
 dashboards: {enabled: false}
-
-resources:
-  limits:
-    cpu: 100m
-    memory: 128Mi
-
+podAnnotations: {fluentbit.io/parser: fluentd_parser}
 configMapConfigs:
   - fluentd-prometheus-conf
 

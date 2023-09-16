@@ -7,14 +7,8 @@ service:
      protocol: TCP
      containerPort: 24224
 dashboards: {enabled: false}
-
-resources:
-  limits:
-    cpu: 100m
-    memory: 128Mi
-
+podAnnotations: {fluentbit.io/parser: fluentd_parser}
 persistence: {enabled: false}
-
 configMapConfigs:
   - fluentd-prometheus-conf
 
