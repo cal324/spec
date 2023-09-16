@@ -1,4 +1,4 @@
-kind: DaemonSet
+kind: Deployment
 podAnnotations: {fluentbit.io/parser: fluentbit_parser}
 
 config:
