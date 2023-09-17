@@ -22,5 +22,8 @@ fileConfigs:
   04_outputs.conf: |-
     <match **>
       @type null
+      <buffer tag>
+        flush_interval 5s
+      </buffer>
     </match>
 
