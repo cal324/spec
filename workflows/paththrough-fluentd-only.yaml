@@ -7,9 +7,6 @@ spec:
   entrypoint: sample
   arguments:
     parameters:
-    - {name: targetrevision, value: develop}
-    - {name: values_targetrevision, value: HEAD}
-    - {name: values_repourl, value: https://github.com/cal324/spec.git}
     - {name: rate, value: 1000}
     - {name: duration, value: 180}
     - {name: limit_cpu, value: 100m}
@@ -31,9 +28,6 @@ spec:
           spec:
             arguments:
               parameters:
-              - {name: targetrevision, value: "{{workflow.parameters.targetrevision}}"}
-              - {name: values_targetrevision, value: "{{workflow.parameters.values_targetrevision}}"}
-              - {name: values_repourl, value: "{{workflow.parameters.values_repourl}}"}
               - {name: values_path, value: paththrough-fluentd-only }
               - {name: rate, value: "{{workflow.parameters.rate}}"}
               - {name: duration, value: "{{workflow.parameters.duration}}"}

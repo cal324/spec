@@ -1,4 +1,4 @@
-kind: "Deployment"
+kind: "DaemonSet"
 variant: kafka2
 podSecurityPolicy: {enabled: false}
 dashboards: {enabled: false}
