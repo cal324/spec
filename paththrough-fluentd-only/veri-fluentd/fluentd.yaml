@@ -31,5 +31,8 @@ fileConfigs:
       <format>
         @type json
       </format>
+      <buffer tag>
+        flush_interval 5s
+      </buffer>
     </match>
 
