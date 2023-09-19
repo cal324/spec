@@ -13,7 +13,10 @@ config:
 
   outputs: |
     [OUTPUT]
-        Name kafka
+    #        Name kafka
+    #    Match *
+    #    Brokers my-cluster-kafka-external-bootstrap.kafka.svc.cluster.local:9094
+    #    Topics my-topic
+        Name null
         Match *
-        Brokers my-cluster-kafka-external-bootstrap.kafka.svc.cluster.local:9094
-        Topics my-topic
+
