@@ -1,0 +1,25 @@
+global:
+  rate: 1000
+  duration: 180
+  limit_cpu: 100m
+  limit_memory: 128Mi
+
+values:
+  - paththrough-aggregator:
+      workflow: aggregator
+  - paththrough-fluentbit-only:
+      workflow: fluentbit-only
+  - paththrough-fluentd-only:
+      workflow: fluentd-only
+  - spin-fluentbit:
+      workflow: fluentbit-only
+      rate: 1
+      rate: 300
+  - spin-fluentd:
+      workflow: fluentd-only
+      rate: 1
+  - config-parse-fluentbit-only:
+      workflow: fluentbit-only
+  - config-parse-fluentd-only:
+      workflow: fluentd-only
+

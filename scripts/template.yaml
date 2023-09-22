@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: <%= name %>-
+spec:
+  serviceAccountName: default
+  entrypoint: sample
+  arguments:
+    parameters:
+    - {name: wf-name, value: <%= name %>}
+    - {name: rate, value: <%= params.key?('rate') ? params['rate'] : global['rate'] %>}
+    - {name: duration, value: <%= params.key?('duration') ? params['duration'] : global['duration'] %>}
+    - {name: limit_cpu, value: <%= params.key?('limit_cpu') ? params['limit_cpu'] : global['limit_cpu'] %>}
+    - {name: limit_memory, value: <%= params.key?('limit_memory') ? params['limit_memory'] : global['limit_memory'] %>}
+  templates:
+    - name: sample
+      steps:
+        - - name: <%= params['workflow'] %>
+            template: <%= params['workflow'] %>
+
+    - name: <%= params['workflow'] %>
+      resource:
+        action: create
+        manifest: |
+          apiVersion: argoproj.io/v1alpha1
+          kind: Workflow
+          metadata:
+            generateName: <%= params['workflow'] %>-
+          spec:
+            arguments:
+              parameters:
+              - {name: wf-name, value: "{{workflow.parameters.wf-name}}" }
+              - {name: values_path, value: "{{workflow.parameters.wf-name}}" }
+              - {name: rate, value: "{{workflow.parameters.rate}}"}
+              - {name: duration, value: "{{workflow.parameters.duration}}"}
+              - {name: limit_cpu, value: "{{workflow.parameters.limit_cpu}}"}
+              - {name: limit_memory, value: "{{workflow.parameters.limit_memory}}"}
+            workflowTemplateRef:
+              name: <%= params['workflow'] %>
+        successCondition: status.phase == Succeeded
+        failureCondition: status.phase in (Failed, Error)
+
