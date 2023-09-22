@@ -7,6 +7,7 @@ spec:
   entrypoint: sample
   arguments:
     parameters:
+    - {name: wf-name, value: paththrough-fluentbit-only}
     - {name: rate, value: 1000}
     - {name: duration, value: 180}
     - {name: limit_cpu, value: 100m}
@@ -28,7 +29,8 @@ spec:
           spec:
             arguments:
               parameters:
-              - {name: values_path, value: paththrough-fluentbit-only }
+              - {name: wf-name, value: "{{workflow.parameters.wf-name}}" }
+              - {name: values_path, value: "{{workflow.parameters.wf-name}}" }
               - {name: rate, value: "{{workflow.parameters.rate}}"}
               - {name: duration, value: "{{workflow.parameters.duration}}"}
               - {name: limit_cpu, value: "{{workflow.parameters.limit_cpu}}"}
