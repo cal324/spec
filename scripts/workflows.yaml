@@ -1,0 +1,55 @@
+<%
+require 'yaml'
+config = YAML.safe_load(File.open('v.yaml', 'r'))
+global = config['global']
+%>
+
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: <%= global['name'] %>-
+spec:
+  serviceAccountName: default
+  entrypoint: sample
+  arguments:
+    parameters:
+    - {name: rate, value: 1000}
+    - {name: duration, value: 180}
+    - {name: limit_cpu, value: 100m}
+    - {name: limit_memory, value: 128Mi}
+  templates:
+    - name: sample
+      steps:
+<% config['values'].each do |value|
+  params = value.values[0]
+  template = params.key?('template') ? params['template'] : params['workflow']
+%>
+        - - name: <%= template %>
+            template: <%= template %>
+<% end %>
+<% config['values'].each do |value|
+  params = value.values[0]
+  template = params.key?('template') ? params['template'] : params['workflow']
+%>
+    - name: <%= template %>
+      resource:
+        action: create
+        manifest: |
+          apiVersion: argoproj.io/v1alpha1
+          kind: Workflow
+          metadata:
+            generateName: -<%= template %>
+          spec:
+            arguments:
+              parameters:
+              - {name: wf-name, value: "<%= params['workflow'] %>" }
+              - {name: values_path, value: "<%= params['workflow'] %>" }
+              - {name: rate, value: "{{workflow.parameters.rate}}"}
+              - {name: duration, value: "{{workflow.parameters.duration}}"}
+              - {name: limit_cpu, value: "{{workflow.parameters.limit_cpu}}"}
+              - {name: limit_memory, value: "{{workflow.parameters.limit_memory}}"}
+            workflowTemplateRef:
+              name: <%= template %>
+        successCondition: status.phase == Succeeded
+        failureCondition: status.phase in (Failed, Error)
+<% end %>
