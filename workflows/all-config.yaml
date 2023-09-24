@@ -34,8 +34,8 @@ spec:
           spec:
             arguments:
               parameters:
-              - {name: wf-name, value: "spin-fluentbit" }
-              - {name: values_path, value: "spin-fluentbit" }
+              - {name: wf-name, value: "config-parse-fluentbit-only" }
+              - {name: values_path, value: "config-parse-fluentbit-only" }
               - {name: rate, value: "{{workflow.parameters.rate}}"}
               - {name: duration, value: "{{workflow.parameters.duration}}"}
               - {name: limit_cpu, value: "{{workflow.parameters.limit_cpu}}"}
@@ -56,8 +56,8 @@ spec:
           spec:
             arguments:
               parameters:
-              - {name: wf-name, value: "spin-fluentd" }
-              - {name: values_path, value: "spin-fluentd" }
+              - {name: wf-name, value: "config-parse-fluentd-only" }
+              - {name: values_path, value: "config-parse-fluentd-only" }
               - {name: rate, value: "{{workflow.parameters.rate}}"}
               - {name: duration, value: "{{workflow.parameters.duration}}"}
               - {name: limit_cpu, value: "{{workflow.parameters.limit_cpu}}"}

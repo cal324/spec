@@ -22,6 +22,9 @@ spec:
         - - name: fluentd-only
             template: fluentd-only
 
+        - - name: aggregator
+            template: aggregator
+
 
     - name: fluentbit-only
       resource:
@@ -34,8 +37,8 @@ spec:
           spec:
             arguments:
               parameters:
-              - {name: wf-name, value: "spin-fluentbit" }
-              - {name: values_path, value: "spin-fluentbit" }
+              - {name: wf-name, value: "paththrough-fluentbit-only" }
+              - {name: values_path, value: "paththrough-fluentbit-only" }
               - {name: rate, value: "{{workflow.parameters.rate}}"}
               - {name: duration, value: "{{workflow.parameters.duration}}"}
               - {name: limit_cpu, value: "{{workflow.parameters.limit_cpu}}"}
@@ -56,14 +59,36 @@ spec:
           spec:
             arguments:
               parameters:
-              - {name: wf-name, value: "spin-fluentd" }
-              - {name: values_path, value: "spin-fluentd" }
+              - {name: wf-name, value: "paththrough-fluentd-only" }
+              - {name: values_path, value: "paththrough-fluentd-only" }
               - {name: rate, value: "{{workflow.parameters.rate}}"}
               - {name: duration, value: "{{workflow.parameters.duration}}"}
               - {name: limit_cpu, value: "{{workflow.parameters.limit_cpu}}"}
               - {name: limit_memory, value: "{{workflow.parameters.limit_memory}}"}
             workflowTemplateRef:
               name: fluentd-only
+        successCondition: status.phase == Succeeded
+        failureCondition: status.phase in (Failed, Error)
+
+    - name: aggregator
+      resource:
+        action: create
+        manifest: |
+          apiVersion: argoproj.io/v1alpha1
+          kind: Workflow
+          metadata:
+            generateName: aggregator-
+          spec:
+            arguments:
+              parameters:
+              - {name: wf-name, value: "paththrough-aggregator" }
+              - {name: values_path, value: "paththrough-aggregator" }
+              - {name: rate, value: "{{workflow.parameters.rate}}"}
+              - {name: duration, value: "{{workflow.parameters.duration}}"}
+              - {name: limit_cpu, value: "{{workflow.parameters.limit_cpu}}"}
+              - {name: limit_memory, value: "{{workflow.parameters.limit_memory}}"}
+            workflowTemplateRef:
+              name: aggregator
         successCondition: status.phase == Succeeded
         failureCondition: status.phase in (Failed, Error)
 

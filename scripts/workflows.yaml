@@ -1,9 +1,6 @@
-<%
-require 'yaml'
-config = YAML.safe_load(File.open('v.yaml', 'r'))
-global = config['global']
-%>
-
+<% require 'yaml'
+config = YAML.safe_load(File.open(file, 'r'))
+global = config['global'] %>
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
@@ -28,6 +25,7 @@ spec:
             template: <%= template %>
 <% end %>
 <% config['values'].each do |value|
+  workflow = value.keys[0]
   params = value.values[0]
   template = params.key?('template') ? params['template'] : params['workflow']
 %>
@@ -38,12 +36,12 @@ spec:
           apiVersion: argoproj.io/v1alpha1
           kind: Workflow
           metadata:
-            generateName: -<%= template %>
+            generateName: <%= template %>-
           spec:
             arguments:
               parameters:
-              - {name: wf-name, value: "<%= params['workflow'] %>" }
-              - {name: values_path, value: "<%= params['workflow'] %>" }
+              - {name: wf-name, value: "<%= workflow %>" }
+              - {name: values_path, value: "<%= workflow %>" }
               - {name: rate, value: "{{workflow.parameters.rate}}"}
               - {name: duration, value: "{{workflow.parameters.duration}}"}
               - {name: limit_cpu, value: "{{workflow.parameters.limit_cpu}}"}

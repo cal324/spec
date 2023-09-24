@@ -1,0 +1,14 @@
+global:
+  name: spin
+  rate: 1000
+  duration: 180
+  limit_cpu: 100m
+  limit_memory: 128Mi
+
+values:
+  - paththrough-fluentbit-only:
+      workflow: fluentbit-only
+  - paththrough-fluentd-only:
+      workflow: fluentd-only
+  - paththrough-aggregator:
+      workflow: aggregator
