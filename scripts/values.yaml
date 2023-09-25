@@ -22,4 +22,5 @@ values:
       workflow: fluentbit-only
   - config-parse-fluentd-only:
       workflow: fluentd-only
-
+  - avro-fluentd-only:
+      workflow: fluentd-only
