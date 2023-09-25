@@ -34,3 +34,5 @@ values:
       workflow: fluentbit-only
   - file-buffer-fluentd-only:
       workflow: fluentd-only
+  - file-buffer-fluentbit-only:
+      workflow: fluentbit-only
