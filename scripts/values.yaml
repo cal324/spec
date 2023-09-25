@@ -32,3 +32,5 @@ values:
       workflow: fluentd-only
   - flush50m-fluentbit-only:
       workflow: fluentbit-only
+  - file-buffer-fluentd-only:
+      workflow: fluentd-only
