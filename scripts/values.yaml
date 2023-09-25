@@ -24,3 +24,5 @@ values:
       workflow: fluentd-only
   - avro-fluentd-only:
       workflow: fluentd-only
+  - grep-fluentd-only:
+      workflow: fluentd-only
