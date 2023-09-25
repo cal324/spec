@@ -42,6 +42,7 @@ fileConfigs:
       </format>
       <buffer tag>
         @type file
+        path /var/log/fluent/buf
         flush_interval 5s
       </buffer>
     </match>
