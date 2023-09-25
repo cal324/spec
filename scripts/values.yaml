@@ -28,3 +28,7 @@ values:
       workflow: fluentd-only
   - grep-fluentbit-only:
       workflow: fluentbit-only
+  - flush60-fluentd-only:
+      workflow: fluentd-only
+  - flush50m-fluentbit-only:
+      workflow: fluentbit-only
