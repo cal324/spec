@@ -14,6 +14,7 @@ spec:
     - {name: duration, value: 180}
     - {name: limit_cpu, value: 100m}
     - {name: limit_memory, value: 128Mi}
+    - {name: path, value: http://dummy-nginx.veri.svc}
   templates:
     - name: sample
       steps:
@@ -44,6 +45,7 @@ spec:
               - {name: duration, value: "{{workflow.parameters.duration}}"}
               - {name: limit_cpu, value: "{{workflow.parameters.limit_cpu}}"}
               - {name: limit_memory, value: "{{workflow.parameters.limit_memory}}"}
+              - {name: path, value: "{{workflow.parameters.path}}"}
             workflowTemplateRef:
               name: <%= params['template'] %>
         successCondition: status.phase == Succeeded
