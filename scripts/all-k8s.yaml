@@ -1,5 +1,5 @@
 global:
-  name: spin
+  name: k8s
   rate: 1000
   duration: 180
   limit_cpu: 100m
@@ -7,14 +7,14 @@ global:
 
 values:
   - k8s-paththrough-fluentbit-only:
-      workflow: fluentbit-only
+      template: fluentbit-only
       path: http://dummy-nginx.veri.svc/container/
   - k8s-parse-only-fluentbit-only:
-      workflow: fluentbit-only
+      template: fluentbit-only
       path: http://dummy-nginx.veri.svc/container/
   - k8s-filter-fluentbit-only:
-      workflow: fluentbit-only
+      template: fluentbit-only
       path: http://dummy-nginx.veri.svc/container/
   - k8s-nginx-parse-fluentbit-only:
-      workflow: fluentbit-only
+      template: fluentbit-only
       path: http://dummy-nginx.veri.svc/container/

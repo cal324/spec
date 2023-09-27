@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: spin-
+  generateName: k8s-
 spec:
   serviceAccountName: default
   entrypoint: sample
@@ -16,27 +16,27 @@ spec:
     - name: sample
       steps:
 
-        - - name: fluentbit-only
-            template: fluentbit-only
+        - - name: k8s-paththrough-fluentbit-only
+            template: k8s-paththrough-fluentbit-only
 
-        - - name: fluentbit-only
-            template: fluentbit-only
+        - - name: k8s-parse-only-fluentbit-only
+            template: k8s-parse-only-fluentbit-only
 
-        - - name: fluentbit-only
-            template: fluentbit-only
+        - - name: k8s-filter-fluentbit-only
+            template: k8s-filter-fluentbit-only
 
-        - - name: fluentbit-only
-            template: fluentbit-only
+        - - name: k8s-nginx-parse-fluentbit-only
+            template: k8s-nginx-parse-fluentbit-only
 
 
-    - name: fluentbit-only
+    - name: k8s-paththrough-fluentbit-only
       resource:
         action: create
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Workflow
           metadata:
-            generateName: fluentbit-only-
+            generateName: k8s-paththrough-fluentbit-only-
           spec:
             arguments:
               parameters:
@@ -51,14 +51,14 @@ spec:
         successCondition: status.phase == Succeeded
         failureCondition: status.phase in (Failed, Error)
 
-    - name: fluentbit-only
+    - name: k8s-parse-only-fluentbit-only
       resource:
         action: create
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Workflow
           metadata:
-            generateName: fluentbit-only-
+            generateName: k8s-parse-only-fluentbit-only-
           spec:
             arguments:
               parameters:
@@ -73,14 +73,14 @@ spec:
         successCondition: status.phase == Succeeded
         failureCondition: status.phase in (Failed, Error)
 
-    - name: fluentbit-only
+    - name: k8s-filter-fluentbit-only
       resource:
         action: create
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Workflow
           metadata:
-            generateName: fluentbit-only-
+            generateName: k8s-filter-fluentbit-only-
           spec:
             arguments:
               parameters:
@@ -95,14 +95,14 @@ spec:
         successCondition: status.phase == Succeeded
         failureCondition: status.phase in (Failed, Error)
 
-    - name: fluentbit-only
+    - name: k8s-nginx-parse-fluentbit-only
       resource:
         action: create
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Workflow
           metadata:
-            generateName: fluentbit-only-
+            generateName: k8s-nginx-parse-fluentbit-only-
           spec:
             arguments:
               parameters:

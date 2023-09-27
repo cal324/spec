@@ -21,16 +21,16 @@ spec:
   templates:
   - name: sample
     steps:
-    - - name: fluentd-only
-        template: fluentd-only
-  - name: fluentd-only
+    - - name: config-parse-fluentd-only
+        template: config-parse-fluentd-only
+  - name: config-parse-fluentd-only
     resource:
       action: create
       manifest: |
         apiVersion: argoproj.io/v1alpha1
         kind: Workflow
         metadata:
-          generateName: fluentd-only-
+          generateName: config-parse-fluentd-only-
         spec:
           arguments:
             parameters:

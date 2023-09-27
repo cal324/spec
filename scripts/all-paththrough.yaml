@@ -1,5 +1,5 @@
 global:
-  name: spin
+  name: path
   rate: 1000
   duration: 180
   limit_cpu: 100m
@@ -7,8 +7,8 @@ global:
 
 values:
   - paththrough-fluentbit-only:
-      workflow: fluentbit-only
+      template: fluentbit-only
   - paththrough-fluentd-only:
-      workflow: fluentd-only
+      template: fluentd-only
   - paththrough-aggregator:
-      workflow: aggregator
+      template: aggregator

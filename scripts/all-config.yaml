@@ -1,5 +1,5 @@
 global:
-  name: spin
+  name: config
   rate: 1000
   duration: 180
   limit_cpu: 100m
@@ -7,6 +7,6 @@ global:
 
 values:
   - config-parse-fluentbit-only:
-      workflow: fluentbit-only
+      template: fluentbit-only
   - config-parse-fluentd-only:
-      workflow: fluentd-only
+      template: fluentd-only

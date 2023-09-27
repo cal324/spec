@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: spin-
+  generateName: config-
 spec:
   serviceAccountName: default
   entrypoint: sample
@@ -16,21 +16,21 @@ spec:
     - name: sample
       steps:
 
-        - - name: fluentbit-only
-            template: fluentbit-only
+        - - name: config-parse-fluentbit-only
+            template: config-parse-fluentbit-only
 
-        - - name: fluentd-only
-            template: fluentd-only
+        - - name: config-parse-fluentd-only
+            template: config-parse-fluentd-only
 
 
-    - name: fluentbit-only
+    - name: config-parse-fluentbit-only
       resource:
         action: create
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Workflow
           metadata:
-            generateName: fluentbit-only-
+            generateName: config-parse-fluentbit-only-
           spec:
             arguments:
               parameters:
@@ -45,14 +45,14 @@ spec:
         successCondition: status.phase == Succeeded
         failureCondition: status.phase in (Failed, Error)
 
-    - name: fluentd-only
+    - name: config-parse-fluentd-only
       resource:
         action: create
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Workflow
           metadata:
-            generateName: fluentd-only-
+            generateName: config-parse-fluentd-only-
           spec:
             arguments:
               parameters:

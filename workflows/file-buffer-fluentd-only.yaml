@@ -21,16 +21,16 @@ spec:
   templates:
   - name: sample
     steps:
-    - - name: fluentd-only
-        template: fluentd-only
-  - name: fluentd-only
+    - - name: file-buffer-fluentd-only
+        template: file-buffer-fluentd-only
+  - name: file-buffer-fluentd-only
     resource:
       action: create
       manifest: |
         apiVersion: argoproj.io/v1alpha1
         kind: Workflow
         metadata:
-          generateName: fluentd-only-
+          generateName: file-buffer-fluentd-only-
         spec:
           arguments:
             parameters:

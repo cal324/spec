@@ -21,16 +21,16 @@ spec:
   templates:
   - name: sample
     steps:
-    - - name: fluentbit-only
-        template: fluentbit-only
-  - name: fluentbit-only
+    - - name: k8s-fluentbit-only
+        template: k8s-fluentbit-only
+  - name: k8s-fluentbit-only
     resource:
       action: create
       manifest: |
         apiVersion: argoproj.io/v1alpha1
         kind: Workflow
         metadata:
-          generateName: fluentbit-only-
+          generateName: k8s-fluentbit-only-
         spec:
           arguments:
             parameters:

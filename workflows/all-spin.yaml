@@ -16,21 +16,21 @@ spec:
     - name: sample
       steps:
 
-        - - name: fluentbit-only
-            template: fluentbit-only
+        - - name: spin-fluentbit
+            template: spin-fluentbit
 
-        - - name: fluentd-only
-            template: fluentd-only
+        - - name: spin-fluentd
+            template: spin-fluentd
 
 
-    - name: fluentbit-only
+    - name: spin-fluentbit
       resource:
         action: create
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Workflow
           metadata:
-            generateName: fluentbit-only-
+            generateName: spin-fluentbit-
           spec:
             arguments:
               parameters:
@@ -45,14 +45,14 @@ spec:
         successCondition: status.phase == Succeeded
         failureCondition: status.phase in (Failed, Error)
 
-    - name: fluentd-only
+    - name: spin-fluentd
       resource:
         action: create
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Workflow
           metadata:
-            generateName: fluentd-only-
+            generateName: spin-fluentd-
           spec:
             arguments:
               parameters:

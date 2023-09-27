@@ -21,16 +21,16 @@ spec:
   templates:
   - name: sample
     steps:
-    - - name: aggregator
-        template: aggregator
-  - name: aggregator
+    - - name: paththrough-aggregator
+        template: paththrough-aggregator
+  - name: paththrough-aggregator
     resource:
       action: create
       manifest: |
         apiVersion: argoproj.io/v1alpha1
         kind: Workflow
         metadata:
-          generateName: aggregator-
+          generateName: paththrough-aggregator-
         spec:
           arguments:
             parameters:

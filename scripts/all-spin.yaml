@@ -7,9 +7,8 @@ global:
 
 values:
   - spin-fluentbit:
-      workflow: fluentbit-only
+      template: fluentbit-only
       rate: 1
-      rate: 300
   - spin-fluentd:
-      workflow: fluentd-only
+      template: fluentd-only
       rate: 1

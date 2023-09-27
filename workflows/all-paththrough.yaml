@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: spin-
+  generateName: path-
 spec:
   serviceAccountName: default
   entrypoint: sample
@@ -16,24 +16,24 @@ spec:
     - name: sample
       steps:
 
-        - - name: fluentbit-only
-            template: fluentbit-only
+        - - name: paththrough-fluentbit-only
+            template: paththrough-fluentbit-only
 
-        - - name: fluentd-only
-            template: fluentd-only
+        - - name: paththrough-fluentd-only
+            template: paththrough-fluentd-only
 
-        - - name: aggregator
-            template: aggregator
+        - - name: paththrough-aggregator
+            template: paththrough-aggregator
 
 
-    - name: fluentbit-only
+    - name: paththrough-fluentbit-only
       resource:
         action: create
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Workflow
           metadata:
-            generateName: fluentbit-only-
+            generateName: paththrough-fluentbit-only-
           spec:
             arguments:
               parameters:
@@ -48,14 +48,14 @@ spec:
         successCondition: status.phase == Succeeded
         failureCondition: status.phase in (Failed, Error)
 
-    - name: fluentd-only
+    - name: paththrough-fluentd-only
       resource:
         action: create
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Workflow
           metadata:
-            generateName: fluentd-only-
+            generateName: paththrough-fluentd-only-
           spec:
             arguments:
               parameters:
@@ -70,14 +70,14 @@ spec:
         successCondition: status.phase == Succeeded
         failureCondition: status.phase in (Failed, Error)
 
-    - name: aggregator
+    - name: paththrough-aggregator
       resource:
         action: create
         manifest: |
           apiVersion: argoproj.io/v1alpha1
           kind: Workflow
           metadata:
-            generateName: aggregator-
+            generateName: paththrough-aggregator-
           spec:
             arguments:
               parameters:
