@@ -8,7 +8,7 @@ spec:
   entrypoint: sample
   arguments:
     parameters:
-    - {name: rate, value: 1000}
+    - {name: rate, value: 1}
     - {name: duration, value: 180}
     - {name: limit_cpu, value: 100m}
     - {name: limit_memory, value: 128Mi}

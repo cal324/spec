@@ -10,10 +10,10 @@ spec:
   entrypoint: sample
   arguments:
     parameters:
-    - {name: rate, value: 1000}
-    - {name: duration, value: 180}
-    - {name: limit_cpu, value: 100m}
-    - {name: limit_memory, value: 128Mi}
+    - {name: rate, value: <%= global['rate'] %>}
+    - {name: duration, value: <%= global['duration'] %>}
+    - {name: limit_cpu, value: <%= global['limit_cpu'] %>}
+    - {name: limit_memory, value: <%= global['limit_memory'] %>}
   templates:
     - name: sample
       steps:
