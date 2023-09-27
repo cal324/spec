@@ -4,17 +4,14 @@ global:
   duration: 180
   limit_cpu: 100m
   limit_memory: 128Mi
+  path: http://dummy-nginx.veri.svc/container/
 
 values:
   - k8s-paththrough-fluentbit-only:
       template: fluentbit-only
-      path: http://dummy-nginx.veri.svc/container/
   - k8s-parse-only-fluentbit-only:
       template: fluentbit-only
-      path: http://dummy-nginx.veri.svc/container/
   - k8s-filter-fluentbit-only:
       template: fluentbit-only
-      path: http://dummy-nginx.veri.svc/container/
   - k8s-nginx-parse-fluentbit-only:
       template: fluentbit-only
-      path: http://dummy-nginx.veri.svc/container/
