@@ -8,6 +8,7 @@ config:
         Tag nginx
         Mem_Buf_Limit 10MB
         Skip_Long_Lines On
+        Refresh_Interval 1s
 
   filters: |
 
