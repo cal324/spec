@@ -6,7 +6,7 @@ config:
         Name tail
         Path /var/log/containers/dummy-nginx*_veri_nginx-*.log
         Tag nginx
-        Mem_Buf_Limit 5MB
+        Mem_Buf_Limit 10MB
         Skip_Long_Lines On
 
   filters: |
