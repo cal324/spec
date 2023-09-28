@@ -2,14 +2,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: file-buffer-fluentbit-only-
+  generateName: k8s-filter-fluentbit-only-
 spec:
   serviceAccountName: default
   entrypoint: sample
   arguments:
     parameters:
     - name: wf-name
-      value: file-buffer-fluentbit-only
+      value: k8s-filter-fluentbit-only
     - name: rate
       value: 1000
     - name: duration
@@ -19,20 +19,20 @@ spec:
     - name: limit_memory
       value: 128Mi
     - name: path
-      value: http://dummy-nginx.veri.svc
+      value: http://dummy-nginx.veri.svc/container/
   templates:
   - name: sample
     steps:
-    - - name: file-buffer-fluentbit-only
-        template: file-buffer-fluentbit-only
-  - name: file-buffer-fluentbit-only
+    - - name: k8s-filter-fluentbit-only
+        template: k8s-filter-fluentbit-only
+  - name: k8s-filter-fluentbit-only
     resource:
       action: create
       manifest: |
         apiVersion: argoproj.io/v1alpha1
         kind: Workflow
         metadata:
-          generateName: file-buffer-fluentbit-only-
+          generateName: k8s-filter-fluentbit-only-
         spec:
           arguments:
             parameters:

@@ -3,6 +3,7 @@ global:
   duration: 180
   limit_cpu: 100m
   limit_memory: 128Mi
+  path: http://dummy-nginx.veri.svc
 
 values:
   - paththrough-aggregator:
@@ -14,7 +15,6 @@ values:
   - spin-fluentbit:
       workflow: fluentbit-only
       rate: 1
-      rate: 300
   - spin-fluentd:
       workflow: fluentd-only
       rate: 1
@@ -36,5 +36,16 @@ values:
       workflow: fluentd-only
   - file-buffer-fluentbit-only:
       workflow: fluentbit-only
-  - k8s-fluentbit-only:
+  - k8s-paththrough-fluentbit-only:
       workflow: fluentbit-only
+      path: http://dummy-nginx.veri.svc/container/
+  - k8s-parse-only-fluentbit-only:
+      workflow: fluentbit-only
+      path: http://dummy-nginx.veri.svc/container/
+  - k8s-filter-fluentbit-only:
+      workflow: fluentbit-only
+      path: http://dummy-nginx.veri.svc/container/
+  - k8s-nginx-parse-fluentbit-only:
+      workflow: fluentbit-only
+      path: http://dummy-nginx.veri.svc/container/
+
