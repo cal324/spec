@@ -6,11 +6,9 @@ config:
         Name tail
         Path /var/log/containers/dummy-nginx*_veri_nginx-*.log
         Tag nginx
-        Mem_Buf_Limit 10MB
-        Buffer_Chunk_Size 10MB
-        Buffer_Max_Size 10MB
+        Mem_Buf_Limit 5MB
         Skip_Long_Lines On
-        #Refresh_Interval 1s
+        Refresh_Interval 1s
 
   filters: |
 
