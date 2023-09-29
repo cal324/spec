@@ -30,7 +30,7 @@ config:
     [OUTPUT]
         Name kafka
         Match *
-        Brokers my-cluster-kafka-external-bootstrap.confluent.svc.cluster.local:9094
+        Brokers my-cluster-kafka-brokers.confluent.svc.cluster.local:9092
         Topics my-topic
 
   customParsers: |
