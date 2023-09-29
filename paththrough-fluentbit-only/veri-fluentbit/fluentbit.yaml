@@ -15,5 +15,5 @@ config:
     [OUTPUT]
             Name kafka
         Match *
-        Brokers my-cluster-kafka-external-bootstrap.cluster.svc.cluster.local:9094
+        Brokers my-cluster-kafka-external-bootstrap.confluent.svc.cluster.local:9094
         Topics my-topic
