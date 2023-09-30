@@ -26,6 +26,7 @@ config:
         Match *
         Brokers my-cluster-kafka-brokers.confluent.svc.cluster.local:9092
         Topics my-topic
+        message_key test
 
   customParsers: |
     [PARSER]
