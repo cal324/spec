@@ -6,6 +6,7 @@ config:
         Name tail
         Path /var/log/containers/dummy-nginx*_veri_nginx-*.log
         Tag nginx
+        message_key test
         Mem_Buf_Limit 5MB
         Skip_Long_Lines On
         Refresh_Interval 1s
