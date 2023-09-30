@@ -37,6 +37,7 @@ fileConfigs:
       brokers "my-cluster-kafka-brokers.confluent.svc.cluster.local:9092"
       topic_key my-topic
       default_topic my-topic
+      default_message_key test
       <format>
         @type json
       </format>

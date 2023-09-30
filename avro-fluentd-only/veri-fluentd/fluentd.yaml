@@ -37,6 +37,7 @@ fileConfigs:
       brokers "my-cluster-kafka-brokers.confluent.svc.cluster.local:9092"
       topic_key avro-topic
       default_topic avro-topic
+      default_message_key test
       <format>
         @type avro
         schema_json {"type":"record","name":"sampleRecord","namespace":"com.mycorp.mynamespace","fields":[{"name": "remote", "type": "string"},{"name": "host", "type": "string"},{"name": "user", "type": "string"},{"name": "method", "type":"string"},{"name": "path", "type": "string"},{"name": "code", "type": "string"},{"name": "size", "type": "string"},{"name": "referer", "type": "string"},{"name": "agent", "type": "string"},{"name":"http_x_forwarded_for", "type": "string"},{"name": "x_b3_traceid", "type": "string"},{"name": "x_b3_spanid", "type": "string"},{"name":"x_b3_parentspanid", "type": "string"},{"name": "x_b3_sampled", "type": "string"}]}
