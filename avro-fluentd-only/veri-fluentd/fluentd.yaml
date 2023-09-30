@@ -43,7 +43,7 @@ fileConfigs:
         schema_json {"type":"record","name":"sampleRecord","namespace":"com.mycorp.mynamespace","fields":[{"name": "remote", "type": "string"},{"name": "host", "type": "string"},{"name": "user", "type": "string"},{"name": "method", "type":"string"},{"name": "path", "type": "string"},{"name": "code", "type": "string"},{"name": "size", "type": "string"},{"name": "referer", "type": "string"},{"name": "agent", "type": "string"},{"name":"http_x_forwarded_for", "type": "string"},{"name": "x_b3_traceid", "type": "string"},{"name": "x_b3_spanid", "type": "string"},{"name":"x_b3_parentspanid", "type": "string"},{"name": "x_b3_sampled", "type": "string"}]}
       </format>
       <buffer tag>
-        flush_interval 5s
+        flush_interval 1s
       </buffer>
     </match>
 

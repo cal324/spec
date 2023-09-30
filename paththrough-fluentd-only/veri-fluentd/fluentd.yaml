@@ -33,7 +33,7 @@ fileConfigs:
         @type json
       </format>
       <buffer tag>
-        flush_interval 5s
+        flush_interval 1s
       </buffer>
     </match>
 

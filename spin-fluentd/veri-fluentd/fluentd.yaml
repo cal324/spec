@@ -23,7 +23,7 @@ fileConfigs:
     <match **>
       @type null
       <buffer tag>
-        flush_interval 5s
+        flush_interval 1s
       </buffer>
     </match>
 
