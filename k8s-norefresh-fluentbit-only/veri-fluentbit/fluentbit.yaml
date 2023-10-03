@@ -1,0 +1,21 @@
+podAnnotations: {fluentbit.io/parser: fluentbit_parser}
+
+config:
+  inputs: |
+    [INPUT]
+        Name tail
+        Path /var/log/containers/dummy-nginx*_veri_nginx-*.log
+        Tag nginx
+        Mem_Buf_Limit 5MB
+        Skip_Long_Lines On
+
+  filters: |
+
+  outputs: |
+    [OUTPUT]
+        Name kafka
+        Match *
+        Brokers my-cluster-kafka-brokers.confluent.svc.cluster.local:9092
+        Topics my-topic
+        message_key test
+

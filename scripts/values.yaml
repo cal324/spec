@@ -48,4 +48,6 @@ values:
   - k8s-nginx-parse-fluentbit-only:
       workflow: fluentbit-only
       path: http://dummy-nginx.veri.svc/container/
-
+  - k8s-norefresh-fluentbit-only:
+      workflow: fluentbit-only
+      path: http://dummy-nginx.veri.svc/container/
