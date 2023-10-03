@@ -6,7 +6,7 @@ config:
         Name tail
         Path /var/log/containers/dummy-nginx*_veri_nginx-*.log
         multiline.parser docker, cri
-        Tag nginx
+        Tag kube.*
         Mem_Buf_Limit 5MB
         Skip_Long_Lines On
         Refresh_Interval 1s
@@ -14,7 +14,7 @@ config:
   filters: |
     [FILTER]
         Name kubernetes
-        Match nginx
+        Match kube.*
         Merge_Log On
         Merge_Log_Key log_processed
         Kube_URL https://kubernetes.default.svc.cluster.local:443
@@ -23,7 +23,7 @@ config:
 
     [FILTER]
         Name parser
-        Match nginx
+        Match kube.*
         Key_Name log
         Parser x-b3-nginx
 
